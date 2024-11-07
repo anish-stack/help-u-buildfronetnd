@@ -17,6 +17,7 @@ import Profiles from "./pages/Profiles/Profiles";
 import Register from "./pages/auth/Register";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/auth/Login";
+import VerifyEmail from "./pages/auth/VerifyEmail";
 // Scroll to top component
 function ScrollToTop() {
   const location = useLocation();
@@ -50,6 +51,7 @@ function App() {
         {/* user authontication rout */}
         <Route path="/user-register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/otp-verification/user" element={<VerifyEmail />} />
 
        
       </Routes>

@@ -11,6 +11,7 @@ function Register() {
         cPassword: ''
     })
 
+    const [loading, setloading] = useState(false)
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -18,31 +19,30 @@ function Register() {
         setFormData((prev) => ({
             ...prev,
             [name]: value
-        })) 
-       
-        if (name === 'Password' || name === 'cPassword') {
-            if (name === 'cPassword' && formData.Password !== value) {
-                // message.error('Passwords do not match!');
-                console.log('Passwords do not match!')
-            } else if (name === 'Password' && formData.cPassword && formData.cPassword !== value) {
-                // message.error('Passwords do not match!');
-                console.log('Passwords do not match!')
-            }
-        }
+        }))
+
     }
 
-    
-     
+
+
 
     const handlSubmit = async (e) => {
-        console.log("first")
         e.preventDefault()
+        setloading(true)
+        if (formData.Password !== formData.cPassword) {
+            setloading(false)
+            return toast.error("Password does not match")
+        }
+
         try {
             const res = await axios.post('http://localhost:5000/api/v1/register', formData)
             console.log(res.data)
             toast.success(res.data.message)
+            window.location.href = `/otp-verification/user?email=${formData.email}&expires=${res.data?.data}`
+            setloading(false)
         } catch (error) {
             console.log(error);
+            setloading(false)
             toast.error(error?.response?.data?.errors?.[0] || error?.response?.data?.message || "Invalid Error")
 
         }
@@ -137,13 +137,14 @@ function Register() {
                                                             >   <label className="form-label text-white" htmlFor="form3Example3c">
                                                                     Your Gender
                                                                 </label>
-                                                                <input
-                                                                    onChange={handleChange}
-                                                                    name='Gender' value={formData.Gender}
-                                                                    type="text"
-                                                                    id="form3Example3c"
-                                                                    className="form-control input-shape px-5"
-                                                                />
+                                                                <select name="Gender" onChange={handleChange} className="form-control form-select  input-shape px-5" value={formData.Gender} >
+                                                                    <option>--Select Your Gender ---</option>
+
+                                                                    <option value={"Mr"}>Male</option>
+                                                                    <option value={"Mrs"}>Fe-male</option>
+
+                                                                </select>
+
 
                                                             </div>
                                                         </div>
@@ -179,7 +180,7 @@ function Register() {
                                                             <div data-mdb-input-init=""
                                                                 className="form-outline flex-fill mb-0" >
                                                                 <label className="form-label text-white" htmlFor="form3Example4cd">
-                                                                    Repeat your password
+                                                                    Confirm password
                                                                 </label>
                                                                 <input
                                                                     onChange={handleChange}
@@ -197,22 +198,29 @@ function Register() {
                                                 <div className="d-flex justify-content-center mx-5 mb-3 mb-lg-4">
                                                     <button
                                                         type="submit"
-                                                        data-mdb-button-init=""
-                                                        data-mdb-ripple-init=""
-                                                        className="btn as_btn  btn-lg mt-4"
+                                                        className="btn btn-primary btn-lg mt-4 as_btn"
+                                                        disabled={loading}
                                                     >
-                                                        Register Now
+                                                        {loading ? (
+                                                            <span>
+                                                                Please wait
+                                                                <span className="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>
+                                                            </span>
+                                                        ) : (
+                                                            "Register"
+                                                        )}
                                                     </button>
-                                                </div>
-                                                
-                                                <div className='col-lg-12'>
-                                                        <div class="form-check d-flex justify-content-center mb-5">
 
-                                                            <label class="form-check-label text-white" for="form2Example3">
+                                                </div>
+
+                                                <div className='col-lg-12'>
+                                                    <div class="form-check d-flex justify-content-center mb-5">
+
+                                                        <label class="form-check-label text-white" for="form2Example3">
                                                             Already have an Account? <a href="/login" class="text-warning">Login here</a>
-                                                            </label>
-                                                        </div>
+                                                        </label>
                                                     </div>
+                                                </div>
                                             </form>
                                         </div>
 
@@ -220,9 +228,9 @@ function Register() {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    </div >
+                </div >
+            </section >
 
         </>
     )
