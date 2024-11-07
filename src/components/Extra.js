@@ -1,0 +1,61 @@
+import React from 'react';
+import howwework from './how-we-work.webp';
+
+const Extra = () => {
+    return (
+        <div className="mx-5 extra-mobile">
+            <div className='my-4'>
+                <div className='row'>
+                    <div className='col-lg-7 col-md-6'>                     
+                            <h2 className='fs-2 main-heading text-capitalize fw-bolder mt-lg-5 mt-sm-1'>How We Work Smoothly for Your Experience and Problems</h2>
+                            {/* <h2 className='fs-1 fw-bolder'></h2> */}
+                            <hr style={{ paddingTop: "2px" }} className='w-25  bg-warning' />
+                   
+                        <div className='row pt-3 ml-0'>
+                            {[
+                                {
+                                    step: 1,
+                                    text: "First, choose the category you'd like to chat about, such as Architecture, Interior Design, or Vastu. Select the one that suits your needs."
+                                },
+                                {
+                                    step: 2,
+                                    text: "Next, select a profile of architects, interior designers, or Vastu experts that matches your requirements and suits your needs."
+                                },
+                                {
+                                    step: 3,
+                                    text: "Feel free to start a chat and ask any questions you have. Our experts are here to help you with your doubts and provide the guidance you need!"
+                                },
+                                {
+                                    step: 4,
+                                    text: "Once you've finished chatting, you can always return to ask more questions or discuss further. We're here to support you every step of the way."
+                                }
+                            ].map((item, index) => (
+                                <div className="col-lg-6 mt-4" key={index}>
+                                    <div className="position-relative step-bg">
+                                        <div className="position-absolute top-0 start-0 w-100 bg-light-dark bg-opacity-50"></div>
+                                        <div className="pe-3 d-inline-flex align-items-center justify-content-start">
+                                            <div className="d-inline-flex px-3 bg-white rounded-pill">
+                                                <div className="d-flex align-items-center justify-content-center fs-5 fw-bold rounded-pill" style={{ width: "54px", height: "54px", background:'#0E294C' }}>
+                                                    <span className='text-white'>{item.step}</span> {/* Dynamic step number */}
+                                                </div>
+                                            </div>
+                                            <p className=" ms-3" style={{fontSize:'16px' }}>
+                                                {item.text}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                    </div>
+                    <div className='col-lg-5 col-md-6'>
+                        <img className='img-fluid object-cover' src={howwework} alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default Extra

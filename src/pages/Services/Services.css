@@ -1,0 +1,62 @@
+.custom-card {
+    background: linear-gradient(145deg, #f9f9f9, #e0e0e0); /* Light gradient background */
+    border-radius: 20px; /* More pronounced rounded corners */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 15px rgba(255, 255, 255, 0.9); /* Dual shadow for depth */
+    padding: 30px; /* Increased padding for better spacing */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+    overflow: hidden; /* Ensure content does not overflow */
+    position: relative; /* Position relative for pseudo-elements */
+    text-align: center; /* Center text alignment */
+  }
+  
+  .custom-card:hover {
+    transform: translateY(-8px); /* Lift effect on hover */
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  }
+  
+  .as_icon {
+    display: inline-block;
+    margin-bottom: 15px; /* Space below the icon */
+    font-size: 40px; /* Larger icon size */
+    color: #007bff; /* Brand color for the icon */
+    transition: transform 0.3s; /* Transition for icon hover */
+  }
+  
+  .as_icon:hover {
+    transform: scale(1.1); /* Slight scaling effect on hover */
+  }
+  
+  .as_subheading {
+    color: #333; /* Darker text for headings */
+    font-size: 1.5rem; /* Larger font size for headings */
+    margin: 15px 0; /* Spacing above and below headings */
+  }
+  
+  .as_paddingBottom10 {
+    padding-bottom: 10px; /* Space below the description */
+    color: #666; /* Lighter color for description */
+  }
+  
+  /* Add a decorative pseudo-element */
+  .custom-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 80%;
+    height: 5px;
+    background: #007bff; /* Accent color */
+    border-radius: 10px;
+    transform: translateX(-50%);
+  }
+  
+  /* Responsive Design Adjustments */
+  @media (max-width: 768px) {
+    .custom-card {
+      padding: 20px; /* Adjust padding for smaller screens */
+    }
+    .as_subheading {
+      font-size: 1.25rem; /* Adjust heading size for smaller screens */
+    }
+  }
+  
