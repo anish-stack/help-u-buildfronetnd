@@ -38,7 +38,7 @@ function ScrollToTop() {
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop /> {/* Ensure this is within the BrowserRouter context */}
+      <ScrollToTop /> 
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
