@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "./Help You Build align logo.png";
+import logo from "./helpubuil-web-logo.webp";
 import "./header.css";
 const Header = () => {
+  const [sessionData, setSessionData] = useState({
+    isAuthenticated: false
+  })
   const [scrollValue, setScrollValue] = useState(0);
-
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
     setIsOpen(!isOpen);
@@ -24,6 +26,23 @@ const Header = () => {
     };
   }, []);
 
+
+  useEffect(() => {
+    const isAuthenticatedValue = sessionStorage.getItem('islogin')
+    // sessionStorage.removeItem('user')
+
+
+    
+    // sessionStorage.clear()
+
+    console.log(isAuthenticatedValue)
+    if (!isAuthenticatedValue) {
+      setSessionData.isAuthenticated = false
+    } else {
+      setSessionData.isAuthenticated = true
+
+    }
+  }, [])
 
   const location = useLocation();
   const [active, setActive] = useState(location.pathname);
@@ -85,14 +104,14 @@ const Header = () => {
         </div> */}
         <div className="container-fluid">
           <div className="row py-2">
-            <div className="col-lg-3 col-md-3 col-sm-4 col-xs-6 forlogoresponsive">
+            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-6 forlogoresponsive">
               <div className="as_logo d-none d-md-block">
                 <Link onClick={handleLinkClick} to={"/"}>
                   <img src={logo} className="img-responsive ws sm-screen-logo" alt="" />
                 </Link>
               </div>
             </div>
-            <div className="col-lg-9 col-md-9 col-sm-8 col-xs-6">
+            <div className="col-lg-8 col-md-8 col-sm-8 col-xs-6">
               <div className="as_right_info">
                 <div
                   className={`as_menu_wrapper  ${isOpen ? "menu_open" : ""} `}
@@ -126,7 +145,7 @@ const Header = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link onClick={handleLinkClick} to="/Interior" className={active === "/Interior" ? "active" : ""}>
+                        <Link onClick={handleLinkClick} to="/talk-to-interior" className={active === "/talk-to-interior" ? "active" : ""}>
                           Talk to Interior
                         </Link>
                       </li>
@@ -154,12 +173,24 @@ const Header = () => {
                         </Link>
                       </li> */}
                       <li>
-                        <Link onClick={handleLinkClick}
-                          className={`as_btn ${active === "/Login" ? "active" : ""}`}
-                          to="/login"
-                        >
-                          Login
-                        </Link>
+                        {
+                          sessionData?.isAuthenticated ? (
+                            <Link onClick={handleLinkClick}
+                              className={`as_btn ${active === "/Profile" ? "active" : ""}`}
+                              to="/Profile"
+                            >
+                              Profile
+                            </Link>
+                          ) : (
+                            <Link onClick={handleLinkClick}
+                              className={`as_btn ${active === "/Login" ? "active" : ""}`}
+                              to="/login"
+                            >
+                              Login
+                            </Link>
+                          )
+                        }
+
                       </li>
                     </ul>
                   </div>

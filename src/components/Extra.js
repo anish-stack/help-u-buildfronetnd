@@ -27,7 +27,7 @@ const Extra = () => {
                                 },
                                 {
                                     step: 4,
-                                    text: "Once you've finished chatting, you can always return to ask more questions or discuss further. We're here to support you every step of the way."
+                                    text: "Once you've finished chatting, you can ask more questions or discuss further. We're here to support anytime, every step by step."
                                 }
                             ].map((item, index) => (
                                 <div className="col-lg-6 mt-4" key={index}>

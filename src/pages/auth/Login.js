@@ -1,36 +1,43 @@
 import React, { useState } from 'react'
 import loginimage from './login-img.webp'
-import axios from 'axios'
-import toast from 'react-hot-toast'
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
 
 function Login() {
     const [logindata, setLoginData] = useState({
         any: '',
         password: ''
     });
+    const [error, setError] = useState(null);
 
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        // console.log(name)
+
         setLoginData((prev) => ({
             ...prev,
             [name]: value
         }))
-
     }
-
 
     const handleloginSubmit = async (e) => {
         console.log("first")
         e.preventDefault()
         try {
+            const { data } = await axios.post('http://localhost:5000/api/v1/login', logindata);
+            const { token, user,message } = data
 
+            sessionStorage.setItem('token',token)
+            sessionStorage.setItem('islogin',token ? true :false)
+
+            sessionStorage.setItem('user',JSON.stringify(user))
+            toast.success(message)
         } catch (error) {
-
-
+            console.log(error)
+            console.log('An err or occurred. Please try again.')
         }
-    }
+    };
 
 
     return (
@@ -91,7 +98,7 @@ function Login() {
                                                 </div>
                                                 <div className="pt-1 mb-4">
                                                     <button
-                                                        onSubmit={handleloginSubmit}
+                                                        onClick={handleloginSubmit}
                                                         data-mdb-button-init=""
                                                         data-mdb-ripple-init=""
                                                         className="btn as_btn btn-lg btn-block"

@@ -21,7 +21,7 @@ const Cards = () => {
   const data = [
     {
       id: 1,
-      Btntitle: "Consult an Architect",
+      Btntitle: "Consult With Architect",
       image: <Arch />,
       borderColor: "border border-warning",
       href: "Architecture",
@@ -29,7 +29,7 @@ const Cards = () => {
     },
     {
       id: 2,
-      Btntitle: "Design Your Space",
+      Btntitle: "Consult with Interior Designer",
       image: <Int />,
       borderColor: "border border-warning",
       href: "Interior",
@@ -37,7 +37,7 @@ const Cards = () => {
     },
     {
       id: 3,
-      Btntitle: "Get Vastu Guidance",
+      Btntitle: "Consult with Vastu Expert",
       image: <Vastus />,
       borderColor: "border border-warning",
       href: "Vastu",

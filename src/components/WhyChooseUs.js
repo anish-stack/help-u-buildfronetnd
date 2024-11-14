@@ -8,8 +8,7 @@ const WhyChooseUs = () => {
                     <div class="row">
                         <div class="col-lg-12 col-md-12 text-center">
                             <h1 class="as_heading">Why Choose <span className='about_color'>Help U Build</span></h1>
-
-                            <p class="as_font14 as_padderBottom50 mx-auto why-sub-para">**Why Choose Help U Build** Choose Help U Build for expert architecture, interior design, and Vastu solutions, blending modern innovation with traditional wisdom.</p>
+                            <p class="as_font14 as_padderBottom50 mx-auto why-sub-para">Choose Help U Build for expert architecture, interior design, and Vastu solutions, blending modern innovation with traditional wisdom.</p>
                         </div>
                         <div class="col-lg-12">
                             <div class="row mx-auto">

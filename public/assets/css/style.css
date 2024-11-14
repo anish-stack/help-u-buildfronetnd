@@ -4161,8 +4161,23 @@ form.d_block {
   padding-left: 19px;
   font-size: 15px !important;
 }
+
 .input-shape{
   border-radius: 5px;
+}
+
+.pass-showhide{
+  position: absolute;
+  top: 60.8%;
+  right: 8%;
+  color:#032f61
+}
+
+.user-registration-eye{
+  position: absolute;
+  top: 59.0%;
+  right: 8%;
+  color:#032f61
 }
 
 /* responsive css */
@@ -4176,6 +4191,13 @@ form.d_block {
 @media(max-width:1200px){
 .info-box {
   height: 217px;
+}
+}
+
+@media(max-width:768px){
+  .pass-showhide {
+    top: 61.4%;
+    right: 12%;
 }
 }
 

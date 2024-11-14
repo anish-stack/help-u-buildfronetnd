@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-function Register() {
-    const [formData, setFormData] = useState({
-        Gender: '',
-        name: '',
-        email: '',
-        PhoneNumber: '',
-        Password: '',
-        cPassword: ''
+import { useParams } from 'react-router-dom'
+
+
+function MembershipRegistration() {
+    const [memberData, setMemberData] = useState({
+        first_name: '',
+        last_name: '',
+        type: '',
+        phone_number: '',
+        password: ''
+
     })
+
     const [isPasswordShow, setIsPasswordShow] = useState(false)
 
     const [loading, setloading] = useState(false)
@@ -17,27 +21,25 @@ function Register() {
     const handleChange = (e) => {
         const { name, value } = e.target
         // console.log(name)
-        setFormData((prev) => ({
+        setMemberData((prev) => ({
             ...prev,
             [name]: value
         }))
-
     }
-
 
     const handlSubmit = async (e) => {
         e.preventDefault()
+
         setloading(true)
-        if (formData.Password !== formData.cPassword) {
-            setloading(false)
-            return toast.error("Password does not match")
-        }
+
 
         try {
-            const res = await axios.post('http://localhost:5000/api/v1/register', formData)
+            const res = await axios.post('http://localhost:5000/api/v1/register-provider', memberData)
             console.log(res.data)
             toast.success(res.data.message)
-            window.location.href = `/otp-verification/user?email=${formData.email}&expires=${res.data?.data}`
+            const { token, user } = res.data
+            sessionStorage.setItem('ProviderToken', token)
+            window.location.href = `/profile-page/${user._id}`
             setloading(false)
         } catch (error) {
             console.log(error);
@@ -45,7 +47,6 @@ function Register() {
             toast.error(error?.response?.data?.errors?.[0] || error?.response?.data?.message || "Invalid Error")
         }
     }
-
     return (
         <>
             <section className="py-5">
@@ -57,7 +58,7 @@ function Register() {
                                     <div className="row justify-content-center">
                                         <div className="col-lg-12 col-xl-12 col-md-10order-2 order-lg-1">
                                             <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4 text-white">
-                                                User Registration Form
+                                                Member Registration Form
                                             </p>
                                             <form onSubmit={handlSubmit} className="mx-1 mx-md-4">
                                                 <div className='row'>
@@ -69,11 +70,11 @@ function Register() {
                                                                 className="form-outline flex-fill mb-0"
                                                             >
                                                                 <label className="form-label text-white" htmlFor="form3Example1c">
-                                                                    Your Name
+                                                                    First Name
                                                                 </label>
                                                                 <input
                                                                     onChange={handleChange}
-                                                                    name='name' value={formData.name}
+                                                                    name='first_name' value={memberData.first_name}
                                                                     type="text"
                                                                     id="form3Example1c"
                                                                     className="form-control input-shape px-5"
@@ -84,18 +85,18 @@ function Register() {
                                                     </div>
                                                     <div className='col-lg-6'>
                                                         <div className="d-flex flex-row mb-4">
-                                                            <i className="fas fa-envelope fa-lg me-3 fa-fw lable-icon" />
+                                                            <i className="fas fa-pencil fa-lg me-3 fa-fw lable-icon" />
                                                             <div
                                                                 data-mdb-input-init=""
                                                                 className="form-outline flex-fill mb-0"
                                                             >
                                                                 <label className="form-label text-white" htmlFor="form3Example3c">
-                                                                    Your Email
+                                                                    Last Name
                                                                 </label>
                                                                 <input
                                                                     onChange={handleChange}
-                                                                    name='email' value={formData.email}
-                                                                    type="email"
+                                                                    name='last_name' value={memberData.last_name}
+                                                                    type="text"
                                                                     id="form3Example3c"
                                                                     className="form-control input-shape px-5"
                                                                 />
@@ -104,7 +105,7 @@ function Register() {
                                                         </div>
                                                     </div>
                                                     <div className='col-lg-6'>
-                                                        <div className="d-flex flex-row mb-4">
+                                                        <div className="d-flex">
                                                             <i className="fas fa-phone fa-lg me-3 fa-fw lable-icon" />
                                                             <div
                                                                 data-mdb-input-init=""
@@ -115,8 +116,11 @@ function Register() {
                                                                 </label>
                                                                 <input
                                                                     onChange={handleChange}
-                                                                    name='PhoneNumber' value={formData.PhoneNumber}
+                                                                    name='phone_number' value={memberData.phone_number}
                                                                     type="tel"
+                                                                    maxlength="10"
+                                                                    minLength="10"
+                                                                    pattern="[1-9]{1}[0-9]{9}"
                                                                     id="form3Example3c"
                                                                     className="form-control input-shape px-5"
                                                                 />
@@ -125,6 +129,7 @@ function Register() {
                                                         </div>
 
                                                     </div>
+
                                                     <div className='col-lg-6'>
                                                         <div className="d-flex flex-row mb-4">
                                                             <i className="fas fa-user fa-lg me-3 fa-fw lable-icon" />
@@ -132,24 +137,20 @@ function Register() {
                                                                 data-mdb-input-init=""
                                                                 className="form-outline flex-fill mb-0"
                                                             >   <label className="form-label text-white" htmlFor="form3Example3c">
-                                                                    Your Gender
+                                                                    Member Type
                                                                 </label>
-                                                                <select name="Gender" onChange={handleChange} className="form-control form-select  input-shape px-5" value={formData.Gender} >
-                                                                    <option>Select Your Gender</option>
-
-                                                                    <option value={"Mr"}>Male</option>
-                                                                    <option value={"Mrs"}>Female</option>
-
+                                                                <select name="type" onChange={handleChange} className="form-control form-select  input-shape px-5" value={memberData.type} >
+                                                                    <option>Select Your Membership</option>
+                                                                    <option value={"Architect"}>Architect Membership</option>
+                                                                    <option value={"Interior"}>Interior Membership</option>
+                                                                    <option value={"Vastu"}>Vastu Membership</option>
                                                                 </select>
-
-
                                                             </div>
                                                         </div>
-
                                                     </div>
 
-                                                    <div className='col-lg-6'>
-                                                        <div className="d-flex flex-row mb-4">
+                                                    <div className='col-lg-12'>
+                                                        <div className="d-flex flex-row">
                                                             <i className="fas fa-lock fa-lg me-3 fa-fw lable-icon" />
                                                             <div
                                                                 data-mdb-input-init=""
@@ -160,36 +161,17 @@ function Register() {
                                                                 </label>
                                                                 <input
                                                                     onChange={handleChange}
-                                                                    name='Password'
-                                                                     value={formData.Password}
+                                                                    name='password'
+                                                                    value={memberData.password}
                                                                     type={isPasswordShow ? 'text' : 'password'}
                                                                     id="form3Example4c"
                                                                     className="form-control input-shape px-5"
                                                                 />
+                                                                <span type='button' onClick={() => setIsPasswordShow(!isPasswordShow)}><i class="far fa-eye pass-showhide"></i></span>
 
                                                             </div>
                                                         </div>
-                                                        <span type='button' onClick={() => setIsPasswordShow(!isPasswordShow)}><i class="far fa-eye user-registration-eye"></i></span>
-                                                    </div>
 
-                                                    <div className='col-lg-6'>
-                                                        <div className="d-flex flex-row mb-4">
-                                                            <i className="fas fa-key fa-lg me-3 fa-fw lable-icon" />
-                                                            <div data-mdb-input-init=""
-                                                                className="form-outline flex-fill mb-0" >
-                                                                <label className="form-label text-white" htmlFor="form3Example4cd">
-                                                                    Confirm password
-                                                                </label>
-                                                                <input
-                                                                    onChange={handleChange}
-                                                                    id="form3Example4cd"
-                                                                    name='cPassword'
-                                                                     value={formData.cPassword}
-                                                                     type={isPasswordShow ? 'text' : 'password'}
-                                                                    className="form-control input-shape px-5"
-                                                                />
-                                                            </div>
-                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -230,9 +212,8 @@ function Register() {
                     </div >
                 </div >
             </section >
-
         </>
     )
 }
 
-export default Register
+export default MembershipRegistration

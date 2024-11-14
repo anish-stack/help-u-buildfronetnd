@@ -1,7 +1,6 @@
 import React from 'react';
 import './ser.css'; // Your CSS
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import chat from './plane-our-jurney.webp'
 import plan from './plan.jpg'
 import budegt from './budget.jpg'

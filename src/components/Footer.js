@@ -51,6 +51,9 @@ const Footer = () => {
 
                       <ul>
                         <li>
+                          <Link to="/member-registration"> Make A Member</Link>
+                        </li>
+                        <li>
                           <Link to="/about"> About Us</Link>
                         </li>
                         <li>
@@ -68,45 +71,27 @@ const Footer = () => {
                   </div>
                   <div class="col-lg-3 col-md-6 col-sm-12">
                     <div style={{ color: "white" }} class="as_footer_widget">
-                      <h3 class="as_footer_heading">Horoscope Forecasts</h3>
+                      <h3 class="as_footer_heading">Our Services</h3>
 
                       <ul>
                         <li>
-                          <a href="/Architecture">Architecture</a>
+                          <a href="/Architecture">Talk to Architecture</a>
+                        </li>
+                        <li>
+                          <a href="/Interior">Talk to Interior designers</a>
                         </li>
                         <li>
                           <a
-                            href="/Interior
-"
-                          >
-                            Interior
-                          </a>
+                            href="/Vastu">Talk to Vastu Experts</a>
+                        </li>
+                        {/* <li>
+                          <a href="/Construction-mall">Shop</a>
                         </li>
                         <li>
-                          <a
-                            href="/Vastu
-
-"
-                          >
-                            Vastu
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/Construction-mall
-"
-                          >
-                            Shop
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/Privacy-Policy
-"
-                          >
+                          <a href="/Privacy-Policy">
                             Privacy-Policy
                           </a>
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                   </div>

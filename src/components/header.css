@@ -31,6 +31,12 @@
 }
 }
 
+@media(max-width:765px){
+    .showsmall>.as_logo{
+        display: block;
+} 
+}
+
 @media(max-width:425px){
     .showsmall>.as_logo{
         display: block;
