@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import loginimage from './login-img.webp'
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { setData } from '../../utils/sessionStoreage';
 
 
 function Login() {
@@ -26,13 +27,23 @@ function Login() {
         e.preventDefault()
         try {
             const { data } = await axios.post('http://localhost:5000/api/v1/login', logindata);
-            const { token, user,message } = data
+            console.log(data)
+            const { token, user, message } = data
+            setData('token', token)
+            setData('islogin', token ? true : false)
+            setData('user', JSON.stringify(user))
 
-            sessionStorage.setItem('token',token)
-            sessionStorage.setItem('islogin',token ? true :false)
 
-            sessionStorage.setItem('user',JSON.stringify(user))
+            if (user.role === 'provider') {
+                if (user.isProfileComplete === false) {
+                    window.location.href = `/profile-page/${user._id}`
+                    // toast.error('Please complete your profile before login.')
+                    // return;
+                }
+            }
+
             toast.success(message)
+            window.location.href = `/`
         } catch (error) {
             console.log(error)
             console.log('An err or occurred. Please try again.')

@@ -2,10 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "./helpubuil-web-logo.webp";
 import "./header.css";
+import { GetData } from "../utils/sessionStoreage";
+
 const Header = () => {
   const [sessionData, setSessionData] = useState({
-    isAuthenticated: false
-  })
+    isAuthenticated: false,
+    user: null,
+    role: '',
+    isProfileComplete: false,
+    dashboard: ''
+  });
+
   const [scrollValue, setScrollValue] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
@@ -26,23 +33,28 @@ const Header = () => {
     };
   }, []);
 
-
   useEffect(() => {
-    const isAuthenticatedValue = sessionStorage.getItem('islogin')
-    // sessionStorage.removeItem('user')
+   
+    const isAuthenticatedValue = GetData('islogin')
+    const convertToBoolean = Boolean(isAuthenticatedValue);
 
+    setSessionData(prevState => ({
+      ...prevState,
+      isAuthenticated: convertToBoolean
+    }));
 
-    
-    // sessionStorage.clear()
+    const UserData = GetData('User')
 
-    console.log(isAuthenticatedValue)
-    if (!isAuthenticatedValue) {
-      setSessionData.isAuthenticated = false
-    } else {
-      setSessionData.isAuthenticated = true
-
+    // Check if UserData exists and has a role
+    if (UserData && UserData.role === 'provider') {
+      setSessionData(prevState => ({
+        ...prevState,
+        user: UserData,
+        role: UserData.role,
+        isProfileComplete: UserData.isProfileComplete || false,
+      }));
     }
-  }, [])
+  }, []);
 
   const location = useLocation();
   const [active, setActive] = useState(location.pathname);
@@ -51,57 +63,11 @@ const Header = () => {
     setActive(location.pathname);
   }, [location]);
 
+  console.log("i am sss", sessionData.isAuthenticated);
+
   return (
     <div>
-      <section
-        className={`as_header_wrapper ${scrollValue > 200 ? "fixed-header" : ""}`}
-      >
-        {/* <div className="as_info_detail">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-lg-6">
-                <ul>
-                  <li>
-                    <a href="javascript:;">
-                      <div className="as_infobox">+91 8826465693</div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:;">
-                      <div className="as_infobox">
-                        info@helpubuild.co.in
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div className="col-lg-6">
-                <div className="as_right_info">
-                  <div className="as_user">
-                    <a href="#!">
-                      <i class="fa-brands fa-facebook fab"></i>
-                    </a>
-                  </div>
-                  <div className="as_user">
-                    <a href="#!">
-                      <i class="fa-brands fa-linkedin lin"></i>
-                    </a>
-                  </div>
-                  <div className="as_user">
-                    <a href="#!">
-                      <i class="fa-brands fa-instagram ins"></i>
-                    </a>
-                  </div>
-                  <div className="as_user">
-                    <a href="#!">
-                      <i class="fa-brands fa-youtube tub"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
+      <section className={`as_header_wrapper ${scrollValue > 200 ? "fixed-header" : ""}`}>
         <div className="container-fluid">
           <div className="row py-2">
             <div className="col-lg-4 col-md-4 col-sm-4 col-xs-6 forlogoresponsive">
@@ -113,9 +79,7 @@ const Header = () => {
             </div>
             <div className="col-lg-8 col-md-8 col-sm-8 col-xs-6">
               <div className="as_right_info">
-                <div
-                  className={`as_menu_wrapper  ${isOpen ? "menu_open" : ""} `}
-                >
+                <div className={`as_menu_wrapper ${isOpen ? "menu_open" : ""}`}>
                   <div className="showsmall">
                     <div className="as_logo">
                       <Link onClick={handleLinkClick} to={"/"}>
@@ -137,10 +101,7 @@ const Header = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link onClick={handleLinkClick}
-                          to="/Architecture"
-                          className={active === "/Architecture" ? "active" : ""}
-                        >
+                        <Link onClick={handleLinkClick} to="/Architecture" className={active === "/Architecture" ? "active" : ""}>
                           Talk to Architecture
                         </Link>
                       </li>
@@ -151,46 +112,32 @@ const Header = () => {
                       </li>
                       <li>
                         <Link onClick={handleLinkClick} to="/Vastu" className={active === "/Vastu" ? "active" : ""}>
-                          Talk to  Vastu
+                          Talk to Vastu
                         </Link>
                       </li>
-                      {/* <li>
-                        <Link onClick={handleLinkClick}
-                          to="/Construction-mall"
-                          className={active === "/Construction-mall" ? "active" : ""}
-                        >
-                          Construction Mall
-                        </Link>
-                      </li> */}
                       <li>
                         <Link onClick={handleLinkClick} to="/blog" className={active === "/blog" ? "active" : ""}>
                           blog
                         </Link>
                       </li>
-                      {/* <li>
-                        <Link onClick={handleLinkClick} to="/Contact" className={active === "/Contact" ? "active" : ""}>
-                          contact
-                        </Link>
-                      </li> */}
-                      <li>
-                        {
-                          sessionData?.isAuthenticated ? (
-                            <Link onClick={handleLinkClick}
-                              className={`as_btn ${active === "/Profile" ? "active" : ""}`}
-                              to="/Profile"
-                            >
-                              Profile
-                            </Link>
-                          ) : (
-                            <Link onClick={handleLinkClick}
-                              className={`as_btn ${active === "/Login" ? "active" : ""}`}
-                              to="/login"
-                            >
-                              Login
-                            </Link>
-                          )
-                        }
 
+                      <li>
+                        {sessionData.isAuthenticated ? (
+                          <Link onClick={handleLinkClick}
+                            className={`as_btn ${active === "/Profile" ? "active" : ""}`}
+                            to={`${sessionData.role === 'provider' ? `/profile?role=${sessionData.role}` : 'profile?role=user'
+                              }`}
+                          >
+                            Profile
+                          </Link>
+                        ) : (
+                          <Link onClick={handleLinkClick}
+                            className={`as_btn ${active === "/Login" ? "active" : ""}`}
+                            to="/login"
+                          >
+                            Login
+                          </Link>
+                        )}
                       </li>
                     </ul>
                   </div>

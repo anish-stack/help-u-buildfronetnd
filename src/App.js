@@ -21,6 +21,7 @@ import VerifyEmail from "./pages/auth/VerifyEmail";
 import TalkToInterior from "./pages/Talk_to_Interior/TalkToInterior";
 import MembershipRegistration from "./Provider/MembershipRegistration";
 import MemberProfile from "./pages/Profiles/MemberProfile";
+import UserDashboard from "./pages/User_Dashboard/UserDashboard";
 
 // Scroll to top component
 function ScrollToTop() {
@@ -38,7 +39,7 @@ function ScrollToTop() {
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop /> 
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -54,13 +55,15 @@ function App() {
         <Route path="/profile-details" element={<Profiles />} />
         {/* user authontication rout */}
         <Route path="/user-register" element={<Register />} />
+        <Route path="/profile" element={<UserDashboard />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/otp-verification/user" element={<VerifyEmail />} />
         <Route path="/talk-to-interior" element={<TalkToInterior />} />
         <Route path="/member-registration" element={<MembershipRegistration />} />
         <Route path="/profile-page/:id" element={<MemberProfile />} />
 
-       
+
       </Routes>
       <Toaster />
       <Footer />

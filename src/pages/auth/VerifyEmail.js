@@ -52,11 +52,12 @@ const VerifyEmail = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const otpString = otp.join('');
-        if (otpString.length !== 6 || otpString.includes('')) {
-            alert('Please enter all 6 digits of the OTP');
-            return;
-        }
+        // const otpString = otp.join('');
+        // console.log(otpString);
+        // if (otpString.length !== 6 || otpString.includes('')) {
+        //     alert('Please enter all 6 digits of the OTP');
+        //     return;
+        // }
 
         setLoading(true);
 
