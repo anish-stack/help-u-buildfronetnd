@@ -54,7 +54,9 @@ const Cards = () => {
               <div className="Own-card_blog_content_wrapper">
                 <div className="row text-left">
                   {data.map((post) => (
-                    <div key={post.id} className="col-lg-4 col-md-4 col-sm-12 col-12 mb-4">
+                    <div key={post.id} data-aos="flip-left"
+                    data-aos-easing="ease-out-cubic"
+                    data-aos-duration="2000" className="col-lg-4 col-md-4 col-sm-12 col-12 mb-4">
                       <div className={`Own-card_card ${post.borderColor} h-100`}>
                         <div className="Own-card_card-body text-center">
                           <div className="Own-card_image-wrapper mb-3">

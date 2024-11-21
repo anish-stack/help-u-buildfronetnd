@@ -398,6 +398,7 @@ font-weight: 500 !important;
 .as_info_detail:last-child {
   margin-right: 0px;
 }
+
 .as_header_detail {
   width: calc(100% - 449px);
 }
@@ -405,6 +406,8 @@ font-weight: 500 !important;
   padding: 23px 0;
   position: relative;
   transition: all 0.3s linear;
+  font-weight: 600;
+  font-size: 18px;
 }
 .as_wishlist {
   margin-left: 20px;

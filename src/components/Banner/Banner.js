@@ -5,7 +5,7 @@ const Banner = () => {
   return (
     <div className="container-fluid p-0 ">
     <div className="d-flex justify-content-center banner align-items-center">
-      <img src={banner} alt=''></img>
+      <img data-aos="zoom-in" src={banner} alt=''></img>
       {/* Add content here if needed */}
     </div>
   </div>

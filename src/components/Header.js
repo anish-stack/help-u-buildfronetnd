@@ -55,7 +55,7 @@ const Header = () => {
       }));
     }
   }, []);
-
+console.log(sessionData)
   const location = useLocation();
   const [active, setActive] = useState(location.pathname);
 
@@ -102,12 +102,12 @@ const Header = () => {
                       </li>
                       <li>
                         <Link onClick={handleLinkClick} to="/Architecture" className={active === "/Architecture" ? "active" : ""}>
-                          Talk to Architecture
+                          Talk to Architect
                         </Link>
                       </li>
                       <li>
                         <Link onClick={handleLinkClick} to="/talk-to-interior" className={active === "/talk-to-interior" ? "active" : ""}>
-                          Talk to Interior
+                          Talk to Interior Designer
                         </Link>
                       </li>
                       <li>

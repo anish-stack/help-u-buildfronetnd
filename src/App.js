@@ -22,7 +22,8 @@ import TalkToInterior from "./pages/Talk_to_Interior/TalkToInterior";
 import MembershipRegistration from "./Provider/MembershipRegistration";
 import MemberProfile from "./pages/Profiles/MemberProfile";
 import UserDashboard from "./pages/User_Dashboard/UserDashboard";
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 // Scroll to top component
 function ScrollToTop() {
   const location = useLocation();
@@ -37,6 +38,12 @@ function ScrollToTop() {
 }
 
 function App() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration in milliseconds
+      once: true, // Whether animation should happen only once
+    });
+  }, []);
   return (
     <BrowserRouter>
       <ScrollToTop />

@@ -6,6 +6,7 @@ import Portfolio from './Portfolio';
 import UploadGallery from './UploadGallery';
 import { toast } from 'react-hot-toast';
 import Settings from './Settings.js';
+import './userdashboard.css';
 
 const UserDashboard = () => {
   const [files, setFiles] = useState([]);
@@ -32,7 +33,7 @@ const UserDashboard = () => {
     if (!token) return;
     setLoading(true);
     try {
-      const { data } = await axios.get('http://localhost:5000/api/v1/GetMyProfile', {
+      const { data } = await axios.get('https://api.helpubuild.co.in/api/v1/GetMyProfile', {
         headers: { Authorization: `Bearer ${token}` }
       });
       console.log(data)
@@ -71,7 +72,7 @@ const UserDashboard = () => {
     setUploading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/addPortfolio?type=Portfolio', formData, {
+      const response = await axios.post('https://api.helpubuild.co.in/api/v1/addPortfolio?type=Portfolio', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -112,11 +113,11 @@ const UserDashboard = () => {
 
   }
   return (
-    <div>
-      <div className="w-75 mx-auto py-5 h-100">
+    <div className='userdashboard-body-bg'>
+      <div className="w-75 mx-auto py-5 h-100 ">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col col-xl-12">
-            <div className="card" style={{ borderRadius: 15 }}>
+            <div className="card  profile-card-header" style={{ borderRadius: 15 }}>
               <div className="card-body p-4">
                 <div className='d-flex'>
                   <a href="#!">
@@ -138,7 +139,7 @@ const UserDashboard = () => {
                   <strong>{myProfile?.age}</strong>
                 </p>
                 <hr className="my-4" />
-                <div className="d-flex justify-content-start align-items-center">
+                <div className="featured-list d-flex justify-content-start align-items-center">
                   <p onClick={() => setActiveTab('settings')} className="mb-0 text-uppercase">
                     <i className="fas fa-cog me-2" />{" "}
                     <span className={`cursor-pointer ${activeTab === 'settings' ? 'text-danger fw-bold text-decoration-underline' : ''}`}>
@@ -159,44 +160,44 @@ const UserDashboard = () => {
                     </span>
                     <span className="ms-3 me-4">|</span>
                   </p>
-
-
-                  <a href="#!">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp"
-                      alt="avatar"
-                      className="img-fluid rounded-circle me-1"
-                      width={35}
-                    />
-                  </a>
-                  <a href="#!">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-3.webp"
-                      alt="avatar"
-                      className="img-fluid rounded-circle me-1"
-                      width={35}
-                    />
-                  </a>
-                  <a href="#!">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-4.webp"
-                      alt="avatar"
-                      className="img-fluid rounded-circle me-1"
-                      width={35}
-                    />
-                  </a>
-                  <a href="#!">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp"
-                      alt="avatar"
-                      className="img-fluid rounded-circle me-3"
-                      width={35}
-                    />
-                  </a>
+                  <p>
+                    <a href="#!">
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp"
+                        alt="avatar"
+                        className="img-fluid rounded-circle user-thumb me-1"
+                        width={35}
+                      />
+                    </a>
+                    <a href="#!">
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-3.webp"
+                        alt="avatar"
+                        className="img-fluid rounded-circle user-thumb me-1"
+                        width={35}
+                      />
+                    </a>
+                    <a href="#!">
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-4.webp"
+                        alt="avatar"
+                        className="img-fluid rounded-circle user-thumb me-1"
+                        width={35}
+                      />
+                    </a>
+                    <a href="#!">
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp"
+                        alt="avatar"
+                        className="img-fluid rounded-circle user-thumb me-3"
+                        width={35}
+                      />
+                    </a>
+                  </p>
 
                   <button
                     type="button"
-                    className="btn btn-outline-danger mx-4 btn-sm btn-floating"
+                    className="btn logout_btn mx-4 btn-sm btn-floating"
                     title="Logout"
                     onClick={() => handleLogout()}
                   >
@@ -213,24 +214,31 @@ const UserDashboard = () => {
 
         {activeTab === "Gallery" && (
 
-          <div className="w-100 py-4 mt-5 mb-3">
-            <h2>
-              <i className="fas fa-lightbulb text-warning me-2" />
-              Your Work Gallery
-              <hr />
-            </h2>
+          <div className="w-100 py-4 mt-4 mb-3">
+            <div className='work-gallery-heading d-flex justify-content-between'>
 
+              <div>
+                <h2 className='work-gallery-heading'>
+                  <i className="fas fa-lightbulb text-warning me-2" />
+                  Your Work Gallery
+                  {/* <hr /> */}
+                </h2>
+              </div>
+              <div>
+                <div className="add-gallery-btn text-end">
+                  <button
+                    onClick={() => setShowGalleryUpload(!showGalleryUpload)}
+                    className="btn btn-outline-danger btn-lg"
+                  >
+                    <i className="fas fa-image me-2"></i>
+                    Add Gallery
+                  </button>
+                </div>
+              </div>
+            </div>
             <div>
               {/* Button to toggle gallery upload */}
-              <div className="text-end mt-4">
-                <button
-                  onClick={() => setShowGalleryUpload(!showGalleryUpload)}
-                  className="btn mb-3 btn-outline-danger btn-lg"
-                >
-                  <i className="fas fa-image me-2"></i>
-                  Add Images to Gallery
-                </button>
-              </div>
+
 
               {/* Check if gallery upload is shown */}
               {showGalleryUpload ? (
@@ -349,95 +357,112 @@ const UserDashboard = () => {
                 </>
               )}
             </div>
+
           </div>
 
         )}
         <>
           {activeTab === 'Portfolio' && (
             <div className="w-100 py-4 mt-5 mb-3">
-              <h2>
-                <i className="fas fa-briefcase text-primary me-2" />
-                My Portfolio
-                <hr />
-              </h2>
+              <div className='d-flex align-item-center justify-content-between'>
+                <div>
+                  <h2>
+                    <i className="fas fa-briefcase text-primary me-2" />
+                    My Portfolio
+                  </h2>
+                </div>
+                <div>
+                  {myProfile?.portfolio?.PortfolioLink && reUploadTrue === false && (
+                    <>
+                      <div className="text-end mt-4">
+                        <button
+                          onClick={() => setReUploadTrue(true)}
+                          className="btn mb-3 btn-outline-danger btn-lg update-portfolio-btn"
+                        >
+                          <i className="fas fa-upload me-2"></i>
+                          Update Portfolio
+                        </button>
+                      </div>
 
-              {myProfile?.portfolio?.PortfolioLink && reUploadTrue === false && (
-                <>
-                  <div className="text-end mt-4">
-                    <button
-                      onClick={() => setReUploadTrue(true)}
-                      className="btn mb-3 btn-outline-danger btn-lg"
-                    >
-                      <i className="fas fa-upload me-2"></i>
-                      Re Upload Portfolio
-                    </button>
-                  </div>
-                  <div>
-                    <Portfolio fileUrl={myProfile?.portfolio?.PortfolioLink} />
-                  </div>
-                </>
+                    </>
+                  )}
+                </div>
+              </div>
+              {reUploadTrue === false && (
+                <Portfolio fileUrl={myProfile?.portfolio?.PortfolioLink} />
               )}
 
-              {
-                reUploadTrue && (
-                  <>
-                    <div className="text-end  mt-4">
-                      <button
-                        onClick={() => setReUploadTrue(false)}
-                        className="btn mb-3 btn-outline-info me-3 btn-lg"
+              <div className=' col-md-12'>
 
+
+                {
+                  reUploadTrue && (
+                    <>
+                      <div style={{ marginTop: '-44px' }} className="text-end  ">
+                        <button
+                          onClick={() => setReUploadTrue(false)}
+                          className="btn mb-3 btn-outline-info me-3 btn-lg view-portfolio-btn"
+
+                        >
+                          <i className="fas fa-eye me-2"></i>
+
+                          View Portfolio
+                        </button>
+                        <button
+                          onClick={handleUpload}
+                          className="btn mb-3 btn-lg upload-portfolio-btn"
+
+                          disabled={uploading || files.length === 0}
+                        >
+                          <i className="fas fa-upload me-2"></i>
+                          {uploading ? 'Uploading...' : 'Upload Portfolio'}
+                        </button>
+                      </div>
+
+
+                      <div
+                        {...getRootProps()}
+                        className="dropzone text-center border-3 border-primary p-5 rounded-lg shadow-lg transition-all hover:shadow-xl hover:bg-gray-100"
+                        style={{
+                          background: '#f7f7f7',
+                          cursor: 'pointer',
+                        }}
                       >
-                        <i className="fas fa-eye me-2"></i>
-
-                        View Portfolio
-                      </button>
-                      <button
-                        onClick={handleUpload}
-                        className="btn mb-3 btn-outline-danger btn-lg"
-
-                        disabled={uploading || files.length === 0}
-                      >
-                        <i className="fas fa-upload me-2"></i>
-                        {uploading ? 'Uploading...' : 'Upload Portfolio'}
-                      </button>
-                    </div>
-
-
-                    <div
-                      {...getRootProps()}
-                      className="dropzone text-center border-3 border-primary p-5 rounded-lg shadow-lg transition-all hover:shadow-xl hover:bg-gray-100"
-                      style={{
-                        background: '#f7f7f7',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <input {...getInputProps()} />
-                      <h5 className="text-muted mb-3">
-                        Drag & drop your PDF here, or click to select files
-                      </h5>
-                      <p className="text-muted mb-4">Max file size: 10MB</p>
-                      <i className="fas fa-cloud-upload-alt text-primary fa-4x mb-3" />
-                      <p className="text-muted">Only PDF files are allowed</p>
-                    </div>
-                    <div className="mt-4">
-                      {files.length > 0 && (
-                        <div className="row">
-                          {files.map((file, index) => (
-                            <div key={index} className="col-12 col-md-4 mb-3">
-                              <div className="card border-0 shadow-sm">
-                                <div className="card-body text-center">
-                                  <i className="fas fa-file-pdf text-danger fa-3x mb-2"></i>
-                                  <p className="card-text">{file.name}</p>
+                        <input {...getInputProps()} />
+                        <h5 className="text-muted mb-3">
+                          Drag & drop your PDF here, or click to select files
+                        </h5>
+                        <p className="text-muted mb-4">Max file size: 10MB</p>
+                        <i className="fas fa-cloud-upload-alt text-primary fa-4x mb-3" />
+                        <p className="text-muted">Only PDF files are allowed</p>
+                      </div>
+                      <div className="mt-4">
+                        {files.length > 0 && (
+                          <div className="row">
+                            {files.map((file, index) => (
+                              <div key={index} className="col-12 col-md-4 mb-3">
+                                <div className="card border-0 shadow-sm">
+                                  <div className="card-body text-center">
+                                    <i className="fas fa-file-pdf text-danger fa-3x mb-2"></i>
+                                    <p className="card-text">{file.name}</p>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )
-              }
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )
+                }
+
+
+              </div>
+
+
+
+
+
             </div>
           )}
         </>
@@ -447,11 +472,11 @@ const UserDashboard = () => {
             <h2>
               <i className="fas fa-user-cog text-dark me-2" />
               My Settings
-            
+
             </h2>
 
-           {/* Settings Form */}
-           <Settings data={myProfile}/>
+            {/* Settings Form */}
+            <Settings data={myProfile} />
 
           </div>
 

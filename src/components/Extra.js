@@ -7,7 +7,7 @@ const Extra = () => {
             <div className='my-4'>
                 <div className='row'>
                     <div className='col-lg-7 col-md-6'>                     
-                            <h2 className='fs-2 main-heading text-capitalize fw-bolder mt-lg-5 mt-sm-1'>How We Work Smoothly for Your Experience and Problems</h2>
+                            <h2 className='fs-2 main-heading text-capitalize fw-bolder mt-lg-5 mt-sm-1' data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">How We Work Smoothly for Your Experience and Problems</h2>
                             {/* <h2 className='fs-1 fw-bolder'></h2> */}
                             <hr style={{ paddingTop: "2px" }} className='w-25  bg-warning' />
                    
@@ -31,7 +31,7 @@ const Extra = () => {
                                 }
                             ].map((item, index) => (
                                 <div className="col-lg-6 mt-4" key={index}>
-                                    <div className="position-relative step-bg">
+                                    <div className="position-relative step-bg" data-aos="fade-up" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0">
                                         <div className="position-absolute top-0 start-0 w-100 bg-light-dark bg-opacity-50"></div>
                                         <div className="pe-3 d-inline-flex align-items-center justify-content-start">
                                             <div className="d-inline-flex px-3 bg-white rounded-pill">
@@ -50,7 +50,7 @@ const Extra = () => {
 
                     </div>
                     <div className='col-lg-5 col-md-6'>
-                        <img className='img-fluid object-cover' src={howwework} alt="" />
+                        <img className='img-fluid object-cover' src={howwework} alt="" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="3000"/>
                     </div>
                 </div>
             </div>

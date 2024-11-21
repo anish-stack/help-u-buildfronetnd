@@ -63,7 +63,7 @@ const Blog = () => {
               </p>
 
               <div className="v3_blog_wrapper">
-                <div className="row text-left">
+                <div className="row text-left" data-aos="fade-up" data-aos-offset="300" data-aos-easing="ease-in-sine">
                   {data.map((post) => (
                     <div
                       key={post.id}

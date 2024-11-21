@@ -77,20 +77,15 @@ const Reviews = () => {
                       <img
                         src={review.image}
                         alt={review.name}
-                        className={`img-fluid img-thumbnail ${
-                          index === currentReview ? "border-primary" : ""
-                        }`}
+                        className={`img-fluid img-thumbnail ${index === currentReview ? "border-primary" : ""
+                          }`}
                         style={{ cursor: "pointer" }}
                       />
                     </div>
                   ))}
                 </div>
                 <div className="col-lg-7 col-md-7 d-flex align-items-center">
-                  <div
-                    className={`as_customer_box text-center fade ${
-                      fade ? "in" : "out"
-                    }`}
-                  >
+                  <div data-aos="fade-left" data-aos-offset="300" data-aos-easing="ease-in-sine" className={`as_customer_box text-center fade ${fade ? "in" : "out" }`}>
                     <p className="as_margin0">{reviews[currentReview].text}</p>
                     <h3>
                       {reviews[currentReview].name} -{" "}
